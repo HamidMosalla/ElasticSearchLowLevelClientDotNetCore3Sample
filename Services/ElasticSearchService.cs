@@ -163,12 +163,12 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
         //            ));
         //}
 
-        //public Task<IndexResponse> IndexAsync(Avatar avatar)
-        //{
-        //    return _elasticClient.IndexAsync(avatar, i => i.Index("ht-index"));
+        public Task<StringResponse> IndexAsync(Avatar avatar)
+        {
+            return _elasticClient.IndexAsync<StringResponse>("ht-index", PostData.Serializable(avatar));
 
-        //    // To confirm you added data from Avatars, you can type this in: GET /ht-index/_search
-        //}
+            // To confirm you added data from Avatars, you can type this in: GET /ht-index/_search
+        }
 
         public Task<StringResponse> BulkIndexAsync(IReadOnlyCollection<Avatar> avatars)
         {

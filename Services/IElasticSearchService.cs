@@ -13,7 +13,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
         //Task<MultiSearchResponse> MultiSearchAsync(string[] matchTerms);
         //Task<List<ISearchResponse<Avatar>>> BulkMatchAsync(string[] matchTerms);
         //Task<ISearchResponse<Avatar>> FilterAsync();
-        //Task<IndexResponse> IndexAsync(Avatar avatar);
+        Task<StringResponse> IndexAsync(Avatar avatar);
         Task<StringResponse> BulkIndexAsync(IReadOnlyCollection<Avatar> avatars);
         //Task<IReadOnlyCollection<IndexResponse>> BulkIndexExperimentalAsync(IReadOnlyCollection<Avatar> contents);
         Task<DynamicResponse> DeleteIndexAsync();

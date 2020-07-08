@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ElasticSearchLowLevelClientDotNetCore3Sample.Models;
 using ElasticSearchLowLevelClientDotNetCore3Sample.Services;
@@ -53,6 +54,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
                 }
             };
 
+            //var indexAsyncResult = await _elasticSearchService.IndexAsync(avatars.First());
             var bulkInsertResult = await _elasticSearchService.BulkIndexAsync(avatars);
 
             //var searchQueryResult = await _elasticSearchService.SearchQueryAsync(2);
