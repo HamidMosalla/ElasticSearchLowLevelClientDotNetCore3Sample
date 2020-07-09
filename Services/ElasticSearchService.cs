@@ -54,7 +54,34 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
             return await _elasticClient.Indices.CreateAsync<DynamicResponse>(indexName, postData);
         }
 
-        public Task<StringResponse> SearchQueryAsync(int id)
+        public Task<StringResponse> SearchTermQueryAsync(int id)
+        {
+            return _elasticClient.SearchAsync<StringResponse>("ht-index", PostData.Serializable(new
+            {
+                from = 0,
+                size = 10000,
+                query = new
+                {
+                    term = new
+                    {
+                        Id = id
+                    }
+                }
+            }));
+
+            /*
+                POST ht-index/_search
+                {
+                   "query":{
+                      "term":{
+                         "id":"2"
+                      }
+                   }
+                }
+            */
+        }
+
+        public Task<StringResponse> SearchMatchQueryAsync(int id)
         {
             return _elasticClient.SearchAsync<StringResponse>("ht-index", PostData.Serializable(new
             {
@@ -64,10 +91,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
                 {
                     match = new
                     {
-                        Id = new
-                        {
-                            query = id
-                        }
+                        Id = id
                     }
                 }
             }));
@@ -84,15 +108,24 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
             */
         }
 
-        //public Task<ISearchResponse<Avatar>> GetMatchPhraseAsync(string matchPhrase)
-        //{
-        //    return _elasticClient.SearchAsync<Avatar>(s => s
-        //            .From(0)
-        //            .Size(10000)
-        //            .Query(q =>
-        //                q.MatchPhrase(mq =>
-        //                    mq.Field(f => f.CurrentPosition).Query(matchPhrase))));
-        //}
+        public Task<StringResponse> GetMatchPhraseAsync(string matchPhrase)
+        {
+            return _elasticClient.SearchAsync<StringResponse>("ht-index", PostData.Serializable(new
+            {
+                from = 0,
+                size = 10000,
+                query = new
+                {
+                    match_phrase = new
+                    {
+                        CurrentPosition = new
+                        {
+                            query = matchPhrase
+                        }
+                    }
+                }
+            }));
+        }
 
         //public async Task<List<ISearchResponse<Avatar>>> BulkMatchAsync(string[] matchTerms)
         //{

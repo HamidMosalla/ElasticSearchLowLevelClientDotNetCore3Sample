@@ -57,7 +57,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
             //var indexAsyncResult = await _elasticSearchService.IndexAsync(avatars.First());
             var bulkInsertResult = await _elasticSearchService.BulkIndexAsync(avatars);
 
-            var searchQueryResult = await _elasticSearchService.SearchQueryAsync(2);
+            var searchQueryResult = await _elasticSearchService.SearchTermQueryAsync(2);
 
             //string[] matchTerms =
             //{
@@ -69,9 +69,9 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
 
             //var bulkMatchResult = await _elasticSearchService.BulkMatchAsync(matchTerms);
 
-            //string matchPhrase = "developer";
+            string matchPhrase = "developer";
 
-            //var matchPhraseResult = await _elasticSearchService.GetMatchPhraseAsync(matchPhrase);
+            var matchPhraseResult = await _elasticSearchService.GetMatchPhraseAsync(matchPhrase);
 
             //var filterResult = await _elasticSearchService.FilterAsync();
 
