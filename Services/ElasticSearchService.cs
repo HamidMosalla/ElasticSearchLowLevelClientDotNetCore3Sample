@@ -127,16 +127,24 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
             }));
         }
 
-        //public async Task<List<ISearchResponse<Avatar>>> BulkMatchAsync(string[] matchTerms)
-        //{
-        //    // we need to use bulk method of the client instead, this is just a sample
-        //    var matchTasks = matchTerms.Select(m => _elasticClient.SearchAsync<Avatar>(term =>
-        //        term.From(0)
-        //            .Size(10000)
-        //            .Query(q => q.Match(mq => mq.Field(f => f.FirstName).Query(m)))));
+        public async Task<List<StringResponse>> BulkMatchAsync(string[] matchTerms)
+        {
+            // we need to use bulk method of the client instead, this is just a sample
+            var matchTasks = matchTerms.Select(m => _elasticClient.SearchAsync<StringResponse>("ht-index", PostData.Serializable(new
+            {
+                from = 0,
+                size = 10000,
+                query = new
+                {
+                    match = new
+                    {
+                        FirstName = m
+                    }
+                }
+            })));
 
-        //    return (await Task.WhenAll(matchTasks)).ToList();
-        //}
+            return (await Task.WhenAll(matchTasks)).ToList();
+        }
 
         //public Task<MultiSearchResponse> MultiSearchAsync(string[] matchTerms)
         //{
@@ -195,19 +203,40 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
         //    return accumulatedQueries;
         //}
 
-        //public Task<ISearchResponse<Avatar>> FilterAsync()
-        //{
-        //    return _elasticClient.SearchAsync<Avatar>(s =>
-        //        s
-        //            .From(0)
-        //            .Size(10000)
-        //            .Query(q => q
-        //                .Bool(b => b
-        //                    .Filter(filter =>
-        //                        filter.Range(m => m.Field(fld => fld.Id).GreaterThanOrEquals(3)))
-        //                )
-        //            ));
-        //}
+        public Task<StringResponse> FilterRangeQueryAsync()
+        {
+            return _elasticClient.SearchAsync<StringResponse>("ht-index", PostData.Serializable(new
+            {
+                from = 0,
+                size = 10000,
+                query = new
+                {
+                    @bool = new
+                    {
+                        filter = new
+                        {
+                            range = new
+                            {
+                                Id = new {gte = 2, lte = 3}
+                            }
+                        }
+                    }
+                }
+            }));
+
+            /*
+                POST ht-index/_search
+                {
+                   "bool" : {
+                       "filter": {
+                         "range" : {
+                             "Id" : { "gte" : 2, "lte" : 3 }
+                        }
+                      }
+                   }
+                }
+            */
+        }
 
         public Task<StringResponse> IndexAsync(Avatar avatar)
         {

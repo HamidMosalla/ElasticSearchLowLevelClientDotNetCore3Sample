@@ -51,6 +51,16 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
                     CurrentPosition = "manager",
                     Country = "France",
                     PhoneNumber = "987767685"
+                },
+                new Avatar
+                {
+                    Id = 4,
+                    FirstName = "Tammy",
+                    LastName = "Kiev",
+                    Email = "tkiev@gmail.com",
+                    CurrentPosition = "intern",
+                    Country = "France",
+                    PhoneNumber = "994785989"
                 }
             };
 
@@ -59,21 +69,21 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
 
             var searchQueryResult = await _elasticSearchService.SearchTermQueryAsync(2);
 
-            //string[] matchTerms =
-            //{
-            //    "Hamid",
-            //    "Jimmy"
-            //};
+            string[] matchTerms =
+            {
+                "Hamid",
+                "Jimmy"
+            };
 
             //var multiSearchResult = await _elasticSearchService.MultiSearchAsync(matchTerms);
 
-            //var bulkMatchResult = await _elasticSearchService.BulkMatchAsync(matchTerms);
+            var bulkMatchResult = await _elasticSearchService.BulkMatchAsync(matchTerms);
 
             string matchPhrase = "developer";
 
             var matchPhraseResult = await _elasticSearchService.GetMatchPhraseAsync(matchPhrase);
 
-            //var filterResult = await _elasticSearchService.FilterAsync();
+            var filterResult = await _elasticSearchService.FilterRangeQueryAsync();
 
             return View();
         }
