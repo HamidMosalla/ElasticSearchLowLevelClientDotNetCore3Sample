@@ -1,0 +1,46 @@
+﻿Commands:
+run .\bin\elasticsearch
+run .\bin\kibana.bat
+navigate to http://localhost:5601 to query the created indexes
+
+POST ht-index/_search
+{
+   "query":{
+      "match":{
+         "firstName":"Hamid"
+      }
+   }
+}
+
+GET /_cat/indices
+DELETE ht-index
+GET /ht-index/_search
+
+Indexing:
+https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/indexing-documents.html#_single_documents_with_parameters
+
+Multi search:
+https://www.elastic.co/guide/en/elasticsearch/client/net-api/1.x/multi-search.html#multi-search
+https://discuss.elastic.co/t/elasticsearch-net-and-multisearch/96602
+
+Query:
+https://www.elastic.co/guide/en/elasticsearch/client/net-api/1.x/writing-queries.html#writing-queries
+
+
+
+// check out this handy site
+// https://hassantariqblog.wordpress.com/category/back-end-stuff/elastic-search/
+
+// and the .net NEST lib is in.  https://github.com/elastic/elasticsearch-net
+
+// Create properties from the Post class
+// https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/fluent-mapping.html
+
+// after creating this, you can issue
+// GET /myindex    in the command area.
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-index.html
+
+// this will insert
+// See https://hassantariqblog.wordpress.com/2016/09/21/elastic-search-insert-documents-in-index-using-nest-in-net/
+
+https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/fluent-mapping.html

@@ -57,7 +57,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
             //var indexAsyncResult = await _elasticSearchService.IndexAsync(avatars.First());
             var bulkInsertResult = await _elasticSearchService.BulkIndexAsync(avatars);
 
-            //var searchQueryResult = await _elasticSearchService.SearchQueryAsync(2);
+            var searchQueryResult = await _elasticSearchService.SearchQueryAsync(2);
 
             //string[] matchTerms =
             //{

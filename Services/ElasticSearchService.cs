@@ -54,22 +54,35 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
             return await _elasticClient.Indices.CreateAsync<DynamicResponse>(indexName, postData);
         }
 
-        //public Task<ISearchResponse<Avatar>> SearchQueryAsync(int id)
-        //{
-        //    return _elasticClient.SearchAsync<Avatar>(s =>
-        //        s.From(0).Size(10000).Query(q => q.Term(t => t.Id, id)));
+        public Task<StringResponse> SearchQueryAsync(int id)
+        {
+            return _elasticClient.SearchAsync<StringResponse>("ht-index", PostData.Serializable(new
+            {
+                from = 0,
+                size = 10000,
+                query = new
+                {
+                    match = new
+                    {
+                        Id = new
+                        {
+                            query = id
+                        }
+                    }
+                }
+            }));
 
-        //    /*
-        //        POST ht-index/_search
-        //        {
-        //           "query":{
-        //              "match":{
-        //                 "firstName":"Hamid"
-        //              }
-        //           }
-        //        }
-        //    */
-        //}
+            /*
+                POST ht-index/_search
+                {
+                   "query":{
+                      "match":{
+                         "id":"2"
+                      }
+                   }
+                }
+            */
+        }
 
         //public Task<ISearchResponse<Avatar>> GetMatchPhraseAsync(string matchPhrase)
         //{
@@ -193,15 +206,6 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
 
             // To confirm you added data from Avatars, you can type this in: GET /ht-index/_search
         }
-
-        //public async Task<IReadOnlyCollection<IndexResponse>> BulkIndexExperimentalAsync(IReadOnlyCollection<Avatar> contents)
-        //{
-        //    var tasks = contents.Select((value, index) => _elasticClient.IndexAsync(value, i => i.Index("ht-index"))).ToList();
-
-        //    return await Task.WhenAll(tasks);
-
-        //    // To confirm you added data from Avatars, you can type this in: GET /ht-index/_search
-        //}
 
         public Task<DynamicResponse> DeleteIndexAsync()
         {
