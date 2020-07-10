@@ -9,5 +9,7 @@
         public string PhoneNumber { get; set; }
         public string Country { get; set; }
         public string CurrentPosition { get; set; }
+
+        public string About { get; set; }
     }
 }

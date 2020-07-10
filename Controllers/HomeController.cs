@@ -30,7 +30,8 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
                     Email = "Xellarix@gmail.com",
                     CurrentPosition = "developer",
                     Country = "France",
-                    PhoneNumber = "3234234234"
+                    PhoneNumber = "3234234234",
+                    About = "I love to go rock climbing."
                 },
                 new Avatar
                 {
@@ -40,7 +41,8 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
                     Email = "jlate@gmail.com",
                     CurrentPosition = "architect",
                     Country = "France",
-                    PhoneNumber = "5557657645"
+                    PhoneNumber = "5557657645",
+                    About = "I love to go mountain climbing."
                 },
                 new Avatar
                 {
@@ -50,7 +52,8 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
                     Email = "mkiev@gmail.com",
                     CurrentPosition = "manager",
                     Country = "France",
-                    PhoneNumber = "987767685"
+                    PhoneNumber = "987767685",
+                    About = "I love to go fishing."
                 },
                 new Avatar
                 {
@@ -60,7 +63,8 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
                     Email = "tkiev@gmail.com",
                     CurrentPosition = "intern",
                     Country = "France",
-                    PhoneNumber = "994785989"
+                    PhoneNumber = "994785989",
+                    About = "I love to sleep."
                 }
             };
 
