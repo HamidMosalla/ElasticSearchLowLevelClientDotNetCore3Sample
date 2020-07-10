@@ -9,6 +9,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.ServiceCollectionExtensio
         public static IServiceCollection RegisterElasticEndpoint(this IServiceCollection services, string indexName)
         {
             var settings = new ConnectionConfiguration(new Uri("http://localhost:9200"))
+                .PrettyJson()
                 .RequestTimeout(TimeSpan.FromMinutes(2));
 
             var lowlevelClient = new ElasticLowLevelClient(settings);

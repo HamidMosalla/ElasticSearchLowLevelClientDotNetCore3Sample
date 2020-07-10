@@ -75,7 +75,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
                 "Jimmy"
             };
 
-            //var multiSearchResult = await _elasticSearchService.MultiSearchAsync(matchTerms);
+            var multiSearchResult = await _elasticSearchService.MultiSearchAsync(matchTerms);
 
             var bulkMatchResult = await _elasticSearchService.BulkMatchAsync(matchTerms);
 

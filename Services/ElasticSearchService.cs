@@ -146,62 +146,27 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
             return (await Task.WhenAll(matchTasks)).ToList();
         }
 
-        //public Task<MultiSearchResponse> MultiSearchAsync(string[] matchTerms)
-        //{
-        //    var searchRequests = matchTerms.ToDictionary(a => a, a => new SearchRequest<Avatar>
-        //    {
-        //        Query = new MatchQuery
-        //        {
-        //            Field = new Field("FirstName"),
-        //            Query = a
-        //        },
-        //        //new TermQuery
-        //        //{
-        //        //    Field = "FirstName",
-        //        //    Value = value
-        //        //},
-        //    } as ISearchRequest);
+        public Task<StringResponse> MultiSearchAsync(string[] matchTerms)
+        {
+            var payload = new List<object>();
 
-        //    var multiSearchRequest = new MultiSearchRequest
-        //    {
-        //        Operations = searchRequests
-        //    };
+            foreach (var matchTerm in matchTerms)
+            {
+                payload.Add(new { });
+                payload.Add(new
+                {
+                    query = new
+                    {
+                        match = new
+                        {
+                            FirstName = matchTerm
+                        }
+                    }
+                });
+            }
 
-        //    // Chain dynamically
-        //    var accumulatedQueries = AccumulatedQueries(matchTerms);
-
-        //    return _elasticClient.MultiSearchAsync(index: null, accumulatedQueries);
-
-        //    // Chain statically
-        //    //return _elasticClient.MultiSearchAsync(null, ms => ms
-        //    //    .Search<Avatar>("Hamid", s => s.MatchAll())
-        //    //    .Search<Avatar>("Jimmy", s => s.MatchAll())
-        //    //);
-
-        //    // Using query dictionary
-        //    //return _elasticClient.MultiSearchAsync(multiSearchRequest);
-        //}
-
-        //private Func<MultiSearchDescriptor, IMultiSearchRequest> AccumulatedQueries(string[] matchTerms)
-        //{
-        //    var queries = new List<Func<MultiSearchDescriptor, IMultiSearchRequest>>();
-
-        //    foreach (var matchTerm in matchTerms)
-        //    {
-        //        queries.Add(des => des.Search<Avatar>(matchTerm,
-        //            s => s.Query(q
-        //                => q.Match(mq => mq.Field(f => f.FirstName).Query(matchTerm)))));
-        //    }
-
-        //    Func<MultiSearchDescriptor, IMultiSearchRequest> accumulatedQueries = null;
-
-        //    foreach (var query in queries)
-        //    {
-        //        accumulatedQueries += query;
-        //    }
-
-        //    return accumulatedQueries;
-        //}
+            return _elasticClient.MultiSearchAsync<StringResponse>(index: "ht-index", PostData.MultiJson(payload));
+        }
 
         public Task<StringResponse> FilterRangeQueryAsync()
         {
@@ -217,7 +182,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
                         {
                             range = new
                             {
-                                Id = new {gte = 2, lte = 3}
+                                Id = new { gte = 2, lte = 3 }
                             }
                         }
                     }
@@ -251,6 +216,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
 
             foreach (var avatar in avatars)
             {
+                // This line is needed to specify the bulk operation, which in this case is indexing, it's refer to as metadata section
                 avatarObjects.Add(new { index = new { } });
                 avatarObjects.Add(new
                 {

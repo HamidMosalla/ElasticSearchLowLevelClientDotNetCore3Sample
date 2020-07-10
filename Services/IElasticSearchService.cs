@@ -15,7 +15,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
 
         Task<StringResponse> GetMatchPhraseAsync(string matchPhrase);
 
-        //Task<MultiSearchResponse> MultiSearchAsync(string[] matchTerms);
+        Task<StringResponse> MultiSearchAsync(string[] matchTerms);
 
         Task<List<StringResponse>> BulkMatchAsync(string[] matchTerms);
 
