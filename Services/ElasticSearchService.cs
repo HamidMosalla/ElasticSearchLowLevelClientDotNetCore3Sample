@@ -226,7 +226,8 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
                     email = avatar.Email,
                     phoneNumber = avatar.PhoneNumber,
                     country = avatar.Country,
-                    currentPosition = avatar.CurrentPosition
+                    currentPosition = avatar.CurrentPosition,
+                    about = avatar.About
                 });
             }
 
