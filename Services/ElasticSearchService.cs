@@ -220,13 +220,13 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
                 avatarObjects.Add(new { index = new { } });
                 avatarObjects.Add(new
                 {
-                    avatar.Id,
-                    avatar.FirstName,
-                    avatar.LastName,
-                    avatar.Email,
-                    avatar.PhoneNumber,
-                    avatar.Country,
-                    avatar.CurrentPosition
+                    id = avatar.Id,
+                    firstName = avatar.FirstName,
+                    lastName = avatar.LastName,
+                    email = avatar.Email,
+                    phoneNumber = avatar.PhoneNumber,
+                    country = avatar.Country,
+                    currentPosition = avatar.CurrentPosition
                 });
             }
 
