@@ -1,5 +1,6 @@
 ﻿Commands:
 run .\bin\elasticsearch
+run as a background process -d or elasticsearch.bat
 run .\bin\kibana.bat
 navigate to http://localhost:5601 to query the created indexes
 

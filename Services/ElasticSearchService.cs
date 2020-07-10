@@ -56,7 +56,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
 
         public Task<StringResponse> SearchTermQueryAsync(int id)
         {
-            return _elasticClient.SearchAsync<StringResponse>("ht-index", PostData.Serializable(new
+            return _elasticClient.SearchAsync<StringResponse>(IndexNames.Avatar, PostData.Serializable(new
             {
                 from = 0,
                 size = 10000,
@@ -83,7 +83,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
 
         public Task<StringResponse> SearchMatchQueryAsync(int id)
         {
-            return _elasticClient.SearchAsync<StringResponse>("ht-index", PostData.Serializable(new
+            return _elasticClient.SearchAsync<StringResponse>(IndexNames.Avatar, PostData.Serializable(new
             {
                 from = 0,
                 size = 10000,
@@ -110,7 +110,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
 
         public Task<StringResponse> GetMatchPhraseAsync(string matchPhrase)
         {
-            return _elasticClient.SearchAsync<StringResponse>("ht-index", PostData.Serializable(new
+            return _elasticClient.SearchAsync<StringResponse>(IndexNames.Avatar, PostData.Serializable(new
             {
                 from = 0,
                 size = 10000,
@@ -130,7 +130,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
         public async Task<List<StringResponse>> BulkMatchAsync(string[] matchTerms)
         {
             // we need to use bulk method of the client instead, this is just a sample
-            var matchTasks = matchTerms.Select(m => _elasticClient.SearchAsync<StringResponse>("ht-index", PostData.Serializable(new
+            var matchTasks = matchTerms.Select(m => _elasticClient.SearchAsync<StringResponse>(IndexNames.Avatar, PostData.Serializable(new
             {
                 from = 0,
                 size = 10000,
@@ -165,12 +165,12 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
                 });
             }
 
-            return _elasticClient.MultiSearchAsync<StringResponse>(index: "ht-index", PostData.MultiJson(payload));
+            return _elasticClient.MultiSearchAsync<StringResponse>(index: IndexNames.Avatar, PostData.MultiJson(payload));
         }
 
         public Task<StringResponse> FilterRangeQueryAsync()
         {
-            return _elasticClient.SearchAsync<StringResponse>("ht-index", PostData.Serializable(new
+            return _elasticClient.SearchAsync<StringResponse>(IndexNames.Avatar, PostData.Serializable(new
             {
                 from = 0,
                 size = 10000,
@@ -205,7 +205,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
 
         public Task<StringResponse> IndexAsync(Avatar avatar)
         {
-            return _elasticClient.IndexAsync<StringResponse>("ht-index", PostData.Serializable(avatar));
+            return _elasticClient.IndexAsync<StringResponse>(IndexNames.Avatar, PostData.Serializable(avatar));
 
             // To confirm you added data from Avatars, you can type this in: GET /ht-index/_search
         }
@@ -230,14 +230,14 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
                 });
             }
 
-            return _elasticClient.BulkAsync<StringResponse>("ht-index", PostData.MultiJson(avatarObjects));
+            return _elasticClient.BulkAsync<StringResponse>(IndexNames.Avatar, PostData.MultiJson(avatarObjects));
 
             // To confirm you added data from Avatars, you can type this in: GET /ht-index/_search
         }
 
         public Task<DynamicResponse> DeleteIndexAsync()
         {
-            return _elasticClient.Indices.DeleteAsync<DynamicResponse>("ht-index");
+            return _elasticClient.Indices.DeleteAsync<DynamicResponse>(IndexNames.Avatar);
         }
     }
 

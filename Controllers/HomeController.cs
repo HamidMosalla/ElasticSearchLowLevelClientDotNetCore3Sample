@@ -18,7 +18,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var createIndexResult = await _elasticSearchService.CreateIndex("ht-index");
+            var createIndexResult = await _elasticSearchService.CreateIndex(IndexNames.Avatar);
 
             var avatars = new List<Avatar>
             {

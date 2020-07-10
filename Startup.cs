@@ -1,3 +1,4 @@
+using ElasticSearchLowLevelClientDotNetCore3Sample.Models;
 using ElasticSearchLowLevelClientDotNetCore3Sample.ServiceCollectionExtensions;
 using ElasticSearchLowLevelClientDotNetCore3Sample.Services;
 using Microsoft.AspNetCore.Builder;
@@ -21,7 +22,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.RegisterElasticEndpoint("ht-index");
+            services.RegisterElasticEndpoint(IndexNames.Avatar);
             services.AddTransient<IElasticSearchService, ElasticSearchService>();
         }
 
