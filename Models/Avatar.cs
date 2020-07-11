@@ -1,4 +1,6 @@
-﻿namespace ElasticSearchLowLevelClientDotNetCore3Sample.Models
+﻿using System.Collections.Generic;
+
+namespace ElasticSearchLowLevelClientDotNetCore3Sample.Models
 {
     public class Avatar
     {
@@ -9,7 +11,8 @@
         public string PhoneNumber { get; set; }
         public string Country { get; set; }
         public string CurrentPosition { get; set; }
-
         public string About { get; set; }
+        public int Age { get; set; }
+        public List<string> Interests { get; set; }
     }
 }

@@ -44,7 +44,20 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
                         Email = new { type = "text" },
                         PhoneNumber = new { type = "text" },
                         Country = new { type = "text" },
-                        CurrentPosition = new { type = "text" }
+                        CurrentPosition = new { type = "text" },
+                        Age = new { type = "integer" },
+                        Interests = new
+                        {
+                            type = "keyword",
+                            //fielddata = true
+                            //fields = new
+                            //{
+                            //    keyword = new
+                            //    {
+                            //        type = "keyword"
+                            //    }
+                            //}
+                        }
                     }
                 }
             };
@@ -227,7 +240,9 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
                     phoneNumber = avatar.PhoneNumber,
                     country = avatar.Country,
                     currentPosition = avatar.CurrentPosition,
-                    about = avatar.About
+                    about = avatar.About,
+                    age = avatar.Age,
+                    interests = avatar.Interests
                 });
             }
 
