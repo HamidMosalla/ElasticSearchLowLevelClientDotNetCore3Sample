@@ -49,14 +49,6 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
                         Interests = new
                         {
                             type = "keyword",
-                            //fielddata = true
-                            //fields = new
-                            //{
-                            //    keyword = new
-                            //    {
-                            //        type = "keyword"
-                            //    }
-                            //}
                         }
                     }
                 }
