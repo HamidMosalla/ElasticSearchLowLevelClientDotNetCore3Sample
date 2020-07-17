@@ -1,0 +1,170 @@
+#! informational queries
+
+GET /_cat/indices
+DELETE avatar
+GET /avatar/_search
+
+#! Deprecation: [types removal] Specifying types in search requests is deprecated.
+GET /avatar/_doc/_search
+
+#! simply
+GET /avatar/_search
+
+GET /_count
+{
+    "query": {
+        "match_all": {}
+    }
+}
+
+POST /avatar/_search
+{
+   "query":{
+      "match":{
+         "firstName":"Hamid"
+      }
+   }
+}
+
+#! or the query string non dsl version
+GET /avatar/_search?q=firstName:Hamid
+
+GET /avatar/_search
+{
+    "query" : {
+        "bool" : {
+            "must" : {
+                "match" : {
+                    "lastName" : "Kiev" 
+                }
+            },
+            "filter" : {
+                "range" : {
+                    "id" : { "gt" : 3 } 
+                }
+            }
+        }
+    }
+}
+
+GET /avatar/_search
+{
+    "query" : {
+        "match" : {
+            "about" : "rock climbing"
+        }
+    }
+}
+
+GET /avatar/_search
+{
+    "query" : {
+        "match_phrase" : {
+            "about" : "rock climbing"
+        }
+    }
+}
+
+GET /avatar/_search
+{
+    "query" : {
+        "match_phrase" : {
+            "about" : "rock climbing"
+        }
+    },
+    "highlight": {
+        "fields" : {
+            "about" : {}
+        }
+    }
+}
+
+GET /avatar/_search
+
+#! analytics through aggregation
+
+GET /avatar/_search
+{
+  "aggs": {
+    "all_interests": {
+      "terms": { "field": "interests" }
+    }
+  }
+}
+
+GET /avatar/_search
+{
+    "aggs" : {
+        "all_interests" : {
+            "terms" : { "field" : "interests" },
+            "aggs" : {
+                "avg_age" : {
+                    "avg" : { "field" : "age" }
+                }
+            }
+        }
+    }
+}
+
+GET /avatar/_search
+{
+    "query" : {
+        "match_phrase" : {
+            "about" : "rock climbing"
+        }
+    }
+}
+
+GET /avatar/_search
+{
+    "query" : {
+        "match_phrase" : {
+            "about" : "rock climbing"
+        }
+    },
+    "highlight": {
+        "fields" : {
+            "about" : {}
+        }
+    }
+}
+
+GET /avatar/_search
+
+GET _cluster/health/avatar
+
+GET /avatar/_count
+{
+  "query": {
+    "match": {
+      "lastName": "Kiev"
+    }
+  }
+}
+
+GET /avatar/_search
+{
+  "aggs": {
+    "main_interests": {
+      "terms": {
+        "field": "interests.keyword",
+        "size": 10
+      }
+    }
+  }
+}
+
+GET /avatar/_search
+{
+    "aggs" : {
+        "main_interests" : {
+            "terms" : { "field" : "interests.keyword" },
+            "aggs" : {
+                "avg_age" : {
+                    "avg" : { "field" : "age" }
+                }
+            }
+        }
+    }
+}
+
