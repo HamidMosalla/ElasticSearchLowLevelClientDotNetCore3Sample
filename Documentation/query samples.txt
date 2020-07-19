@@ -168,3 +168,172 @@ GET /avatar/_search
     }
 }
 
+
+#! the aggregation will be run within the scope of the match (country) query
+GET /avatar/_search
+{
+  "query": {
+    "match": {
+      "country": "France"
+    }
+  }, 
+    "aggs" : {
+        "main_interests" : {
+            "terms" : { "field" : "interests.keyword" },
+            "aggs" : {
+                "avg_age" : {
+                    "avg" : { "field" : "age" }
+                },
+                "max_age":{
+                  "max":{
+                    "field": "age"
+                  }
+                }
+            }
+        }
+    }
+}
+
+
+#! running it multiple times will increment the version because of _doc
+#! also the documents are immutable, they are recreated even if we update only one field
+PUT /avatar/_doc/123
+{
+  "id" : 5,
+  "firstName" : "Mori",
+  "lastName" : "Kiev",
+  "email" : "mkiev@gmail.com",
+  "phoneNumber" : "5543776545",
+  "country" : "France",
+  "currentPosition" : "HR especialist",
+  "about" : "I love to climb anything I can get my hands on.",
+  "age" : 50,
+  "interests" : [
+    "jamaharon"
+  ]
+}
+
+#! the exact same thing as above
+POST /avatar/_doc/123/_update
+{
+  "doc":{
+    "firstName" : "Moriy"
+  }
+}
+
+GET /avatar/_doc/123
+
+#! running it multiple times will result in error because of explicit _create
+PUT /avatar/_create/124
+{
+  "id" : 6,
+  "firstName" : "Merry",
+  "lastName" : "Kiev",
+  "email" : "mkiev@gmail.com",
+  "phoneNumber" : "555666444",
+  "country" : "France",
+  "currentPosition" : "General Practicioner",
+  "about" : "I love to climb anything I can get my hands on.",
+  "age" : 50,
+  "interests" : [
+    "jamaharon"
+  ]
+}
+
+GET /avatar/_doc/124
+
+#! if we only need the source
+GET /avatar/_doc/124/_source
+
+HEAD /avatar/_doc/124
+
+DELETE /avatar/_doc/124
+
+#! this only returns the structure of the document like mapping and stuff
+GET avatar
+
+
+GET /avatar/_search
+
+
+#! if there is type in here and it wanted to create mapping, it's going to ignore it for mapping
+#! but return it in queries
+PUT /business/building/200
+{
+  "address": "11 Pen Ave"
+}
+
+GET /business/building/200
+
+GET /business
+
+#! will result in error because we can't have more than one type in an index
+#! we need to create another index for booking
+PUT /business/booking/200
+{
+  "address": "11 Pen Ave"
+}
+
+#! if you change the content of the document, and PUT it, the mapping get updated automatically
+
+#! to test before creating the mappings
+GET customers
+
+DELETE customers
+
+PUT /customers
+{
+  "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+      "dynamic": "strict",
+    "properties": {
+      "Email": {
+        "type": "text"
+    }
+    }
+  }
+}
+
+GET customers/_mapping
+{
+  "dynamic": strict // or "false" if you don't want to get errors
+}
+
+GET /customers
+
+
+PUT /customers/_create/2
+{
+  // now this is going to return error, it doesn't create mapping dynamically
+  "Email": "something@something.com",
+  "CustomerName": "Joneseses"
+}
+
+#! more on this here: https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-analyzers.html
+
+POST _analyze
+{
+  "analyzer": "whitespace",
+  "text": "The quick brown fox."
+}
+
+POST _analyze
+{
+  "analyzer": "standard",
+  "text": "The quick brown fox."
+}
+
+POST _analyze
+{
+  "analyzer": "simple",
+  "text": "The quick343 brown234 fox."
+}
+
+POST _analyze
+{
+  "analyzer": "english",
+  "text": "The :; quick343 brown234 running fox."
+}
