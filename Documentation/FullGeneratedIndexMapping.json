@@ -1,0 +1,126 @@
+﻿{
+  "avatar" : {
+    "aliases" : { },
+    "mappings" : {
+      "properties" : {
+        "Age" : {
+          "type" : "integer"
+        },
+        "Country" : {
+          "type" : "text"
+        },
+        "CurrentPosition" : {
+          "type" : "text"
+        },
+        "Email" : {
+          "type" : "text"
+        },
+        "FirstName" : {
+          "type" : "text"
+        },
+        "Id" : {
+          "type" : "long"
+        },
+        "Interests" : {
+          "type" : "keyword"
+        },
+        "LastName" : {
+          "type" : "text"
+        },
+        "PhoneNumber" : {
+          "type" : "text"
+        },
+        "about" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "age" : {
+          "type" : "long"
+        },
+        "country" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "currentPosition" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "email" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "firstName" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "id" : {
+          "type" : "long"
+        },
+        "interests" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "lastName" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "phoneNumber" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        }
+      }
+    },
+    "settings" : {
+      "index" : {
+        "creation_date" : "1594971930619",
+        "number_of_shards" : "1",
+        "number_of_replicas" : "1",
+        "uuid" : "sm_FeIMeTeu9hFng-6z0Gg",
+        "version" : {
+          "created" : "7080099"
+        },
+        "provided_name" : "avatar"
+      }
+    }
+  }
+}
