@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Documentation\FullGeneratedIndexMapping.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Documentation\FullGeneratedIndexMapping.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Elasticsearch.Net" Version="7.8.1" />
   </ItemGroup>
 

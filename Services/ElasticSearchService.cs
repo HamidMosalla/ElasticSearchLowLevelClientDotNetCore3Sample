@@ -36,19 +36,25 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
             {
                 mappings = new
                 {
-                    properties = new
+                    dynamic = "strict", // or "false" if you don't want to get errors
+                    // type, only one type per index, this is not required
+                    avatar = new
                     {
-                        Id = new { type = "long" },
-                        FirstName = new { type = "text" },
-                        LastName = new { type = "text" },
-                        Email = new { type = "text" },
-                        PhoneNumber = new { type = "text" },
-                        Country = new { type = "text" },
-                        CurrentPosition = new { type = "text" },
-                        Age = new { type = "integer" },
-                        Interests = new
+                        properties = new
                         {
-                            type = "keyword",
+                            Id = new {type = "long"},
+                            FirstName = new {type = "text"},
+                            LastName = new {type = "text"},
+                            Email = new {type = "text"},
+                            PhoneNumber = new {type = "text"},
+                            Country = new {type = "text"},
+                            CurrentPosition = new {type = "text"},
+                            Age = new {type = "integer"},
+                            Interests = new
+                            {
+                                type = "keyword",
+                                analyzer = "standard"
+                            }
                         }
                     }
                 }

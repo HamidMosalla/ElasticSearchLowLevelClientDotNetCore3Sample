@@ -18,6 +18,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Controllers
 
         public async Task<IActionResult> Index()
         {
+            // We don't have to explicitly create mapping, ES can figure it out from doc content
             var createIndexResult = await _elasticSearchService.CreateIndex(IndexNames.Avatar);
 
             var avatars = new List<Avatar>
