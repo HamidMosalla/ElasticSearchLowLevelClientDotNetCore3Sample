@@ -2,6 +2,7 @@
 run .\bin\elasticsearch
 run as a background process -d or elasticsearch.bat
 run .\bin\kibana.bat
+run and test logstash: .\logstash -e 'input {stdin {}} output {stdout {}}'
 navigate to http://localhost:5601 to query the created indexes
 
 POST ht-index/_search
@@ -45,3 +46,5 @@ https://www.elastic.co/guide/en/elasticsearch/client/net-api/1.x/writing-queries
 // See https://hassantariqblog.wordpress.com/2016/09/21/elastic-search-insert-documents-in-index-using-nest-in-net/
 
 https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/fluent-mapping.html
+
+https://github.com/elastic/elasticsearch-net-example/tree/7.x-codecomplete

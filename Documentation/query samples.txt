@@ -337,3 +337,40 @@ POST _analyze
   "analyzer": "english",
   "text": "The :; quick343 brown234 running fox."
 }
+
+GET /_cat/indices
+DELETE carsindex
+
+
+GET /_cluster/health
+
+PUT /blogs
+{
+   "settings" : {
+      "number_of_shards" : 3,
+      "number_of_replicas" : 1
+   }
+}
+
+
+PUT /blogs/_settings
+{
+   "number_of_replicas" : 2
+}
+
+GET /avatar/_doc/FNC8W3MBmhgVBjXgQKLa?_source=firstName,age
+GET /avatar/_doc/FNC8W3MBmhgVBjXgQKLa/_source
+
+#! to check if the document exists
+HEAD /avatar/_doc/FNC8W3MBmhgVBjXgQKLa
+
+#! to expelicitly create document if it dose not exists, if exist it throws error document_already_exists_exception
+PUT /avatar/_doc/FNC8W3MBmhgVBjXgQKLa/_create
+
+#! this only succeed if someone else didn't update the document before me
+#! and the version is still 1, if someone changed it the v going to be 2 and it throws error
+PUT /avatar/_doc/FNC8W3MBmhgVBjXgQKLa?version=1
+{
+  "firstName": "My first name",
+  "age":  "My age"
+}
