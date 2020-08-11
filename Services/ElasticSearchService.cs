@@ -37,7 +37,7 @@ namespace ElasticSearchLowLevelClientDotNetCore3Sample.Services
                 mappings = new
                 {
                     dynamic = "strict", // or "false" if you don't want to get errors
-                    // type, only one type per index, this is not required
+                    // type= as for specifying type, only one type per index, this is not required
                     avatar = new
                     {
                         properties = new

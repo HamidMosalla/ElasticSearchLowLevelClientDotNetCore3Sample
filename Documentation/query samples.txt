@@ -374,3 +374,77 @@ PUT /avatar/_doc/FNC8W3MBmhgVBjXgQKLa?version=1
   "firstName": "My first name",
   "age":  "My age"
 }
+
+
+GET /_cat/indices
+
+GET /_search
+
+#! combine indexes
+GET /avatar,vehicles/_search 
+
+#! set timeout for queries
+GET avatar/_search?timeout=10ms
+
+#! Beware of paging too deep or requesting too many results at once
+GET avatar/_search?size=5&from=2
+
+GET /avatar/_mapping/
+
+#! wil not be index and not searchable
+{
+    "tag": {
+        "type":     "string",
+        "index":    "no"
+    }
+}
+
+#! validate api will do that on your query
+GET /_validate/query?explain
+{
+    "query" : {
+        "bool" : {
+            "mustt" : {
+                "match" : {
+                    "lastName" : "Kiev" 
+                }
+            },
+            "filter" : {
+                "range" : {
+                    "id" : { "gt" : 3 } 
+                }
+            }
+        }
+    }
+}
+
+POST /avatar/_search
+{
+   "query":{
+      "match":{
+         "country":"France"
+      }
+   },
+    "sort": { "age": { "order": "desc" }}
+}
+
+POST /avatar/_search
+{
+   "query":{
+      "match":{
+         "country":"France"
+      }
+   },
+    "sort": "age"
+}
+
+
+
+
+
+
+
+
+
+
+
