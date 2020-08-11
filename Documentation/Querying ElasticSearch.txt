@@ -348,3 +348,171 @@ GET /courses/_search
 			}
 		}
 }
+
+
+
+GET /_cat/indices
+
+GET /avatar/_search
+
+GET /vehicles/_search
+
+#! partial update without specifying everyting, but it still going to recreate the document 
+POST /avatar/_doc/FNC8W3MBmhgVBjXgQKLa/_update
+{
+   "doc" : {
+      "firstName" : "Hamid-AfterPartialUpdate"
+   }
+}
+
+#! partial update without specifying everyting, increasing the age field
+POST /avatar/_doc/FNC8W3MBmhgVBjXgQKLa/_update
+{
+   "script" : "ctx._source.age+=1"
+}
+
+#! you can write groovy script to update value, you can disable it for security reasons
+POST /avatar/_doc/FNC8W3MBmhgVBjXgQKLa/_update
+{
+  "script": {
+    "lang": "painless",
+    "inline": "ctx._source.interests.add(params.interests)",
+    "params": {
+      "interests": "search for dinosaur skeleton"
+    }
+  }
+}
+
+GET /avatar/_search
+GET /vehicles/_search
+
+#! retrieving multiple doc at once is faster
+GET /_mget
+{
+   "docs" : [
+      {
+         "_index" : "avatar",
+         "_type" :  "_doc",
+         "_id" :    "FNC8W3MBmhgVBjXgQKLa",
+         "_source": ["firstName", "age"]
+      },
+      {
+         "_index" : "vehicles",
+         "_type" :  "_doc",
+         "_id" :    "NzZObHMB7BB7bJq4d2ib",
+         "_source": "make"
+      }
+   ]
+}
+
+
+#! if the docs belong to the same index we don't need to include the index and everything
+GET /avatar/_doc/_mget
+{
+   "docs" : [
+      { "_id" : "FNC8W3MBmhgVBjXgQKLa" },
+      { "_id" : "FdC8W3MBmhgVBjXgQKLa" }
+   ]
+}
+
+
+#! or if we only have ids in our filter
+GET /avatar/_doc/_mget
+{
+   "ids" : [ "FNC8W3MBmhgVBjXgQKLa", "FdC8W3MBmhgVBjXgQKLa" ]
+}
+
+
+GET /avatar/_search
+
+
+POST /_bulk
+{ "delete": { "_index": "avatar", "_type": "_doc", "_id": "FdC8W3MBmhgVBjXgQKLa" }} 
+{ "create": { "_index": "avatar", "_type": "_doc", "_id": "124" }}
+{ "firstName":    "My very first name" }
+{ "index":  { "_index": "avatar", "_type": "_doc" }}
+{ "firstName":    "My second very first name" }
+{ "update": { "_index": "avatar", "_type": "_doc", "_id": "124"} }
+{ "doc" : {"firstName" : "My updated fist name"} } 
+
+
+POST /_bulk
+{ "delete": { "_index": "avatar", "_type": "_doc", "_id": "FdC8W3MBmhgVBjXgQKLa" }} 
+{ "create": { "_index": "avatar", "_type": "_doc", "_id": "124" }}
+{ "firstName":    "My very first name" }
+{ "index":  { "_index": "avatar", "_type": "_doc" }}
+{ "firstName":    "My second very first name" }
+{ "update": { "_index": "avatar", "_type": "_doc", "_id": "124"} }
+{ "doc" : {"firstName" : "My updated fist name"} } 
+
+
+#! it'll infer it if it could get it from url
+POST /avatar/_doc/_bulk
+{ "index":  {  }}
+{ "firstName":    "My 1 very first name" }
+{ "index":  {  }}
+{ "firstName":    "My 2 very first name" }
+{ "index":  {  }}
+{ "firstName":    "My 3 very first name" }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
