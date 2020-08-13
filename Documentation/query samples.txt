@@ -440,6 +440,71 @@ POST /avatar/_search
 
 
 
+POST /avatar/_search
+{
+   "query":{
+      "term":{
+        // Avoid using the term query for text fields.
+         "id":"1"
+      }
+   },
+    "sort": "age"
+}
+
+
+GET /avatar/_doc/_explain
+{
+   "query"   : { "match" : { "country" : "France" }}
+}
+
+#! disable sorting if we want to retrieve large number of documents https://www.elastic.co/guide/en/elasticsearch/guide/current/scroll.html
+GET /avatar/_search?scroll=1m 
+{
+    "query": { "match_all": {}},
+    "sort" : ["_doc"], 
+    "size":  1000
+}
+
+
+
+action.auto_create_index: false
+action.destructive_requires_name: true
+
+// custom filters, analyzers etc when creating index
+PUT /my_index
+{
+    "settings": {
+        "analysis": {
+            "char_filter": {
+                "&_to_and": {
+                    "type":       "mapping",
+                    "mappings": [ "&=> and "]
+            }},
+            "filter": {
+                "my_stopwords": {
+                    "type":       "stop",
+                    "stopwords": [ "the", "a" ]
+            }},
+            "analyzer": {
+                "my_analyzer": {
+                    "type":         "custom",
+                    "char_filter":  [ "html_strip", "&_to_and" ],
+                    "tokenizer":    "standard",
+                    "filter":       [ "lowercase", "my_stopwords" ]
+            }}
+}}}
+
+GET /my_index/_analyze
+{
+    "text": "The quick & brown fox",
+    "analyzer": "my_analyzer"
+}
+
+
+
+
+
+
 
 
 
