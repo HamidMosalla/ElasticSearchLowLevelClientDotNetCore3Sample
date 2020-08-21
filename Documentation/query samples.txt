@@ -500,11 +500,22 @@ GET /my_index/_analyze
     "analyzer": "my_analyzer"
 }
 
+#! you can do a refresh if you don't see it in the result, it's going to refresh automatically once every 1 second
+POST /avatar/_refresh 
 
+#! you can also set the refresh interval    
+PUT /avatar
+{
+  "settings": {
+    "refresh_interval": "30s" 
+  }
+}
 
-
-
-
+#! or turn off the interval
+PUT /avatar/_settings
+{ 
+  "refresh_interval": -1
+} 
 
 
 
