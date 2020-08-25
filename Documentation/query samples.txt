@@ -517,7 +517,31 @@ PUT /avatar/_settings
   "refresh_interval": -1
 } 
 
+GET /avatar/_search
 
+#! create an alias for avatar index so we can call it better
+PUT /avatar/_alias/ava 
+
+GET /ava/_search
+
+#! which index the alias points to
+GET /*/_alias/ava
+
+#! hich aliases point to the index
+GET /avatar/_alias/*
+
+#! be specific with your query with using term when you can, faster, easier to cache
+#! see : https://www.elastic.co/guide/en/elasticsearch/guide/current/_finding_exact_values.html#_term_query_with_numbers
+POST /avatar/_search
+{
+   "query":{
+      "term":{
+        // Avoid using the term query for text fields that are analyzed, they might be separated, it that case you should change them to not be analyzed.
+         "id":"1"
+      }
+   },
+    "sort": "age"
+}
 
 
 
