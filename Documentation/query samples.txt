@@ -544,6 +544,134 @@ POST /avatar/_search
 }
 
 
+POST /avatar/_search
+
+#! this does not return anything
+POST /avatar/_search
+{
+   "query":{
+      "term":{
+         "firstName":"Malfo"
+      }
+   },
+    "sort": "age"
+}
+
+#! if something is wrong with your query and it does not reutrn just analyze it to see how it's stored
+GET /avatar/_analyze
+{
+  "field": "firstName",
+  "text": "Malfo"
+}
+
+POST /avatar/_search
+{
+   "query":{
+      "term":{
+         "firstName":"malfo"
+      }
+   },
+    "sort": "age"
+}
+
+POST /avatar/_search
+{
+   "query":{
+      "terms":{
+         "firstName":["malfo", "hamid"]
+      }
+   },
+    "sort": "age"
+}
+
+#! some more date range queries
+"range" : {
+    "timestamp" : {
+        "gt" : "now-1h"
+    }
+}
+
+#! or you can use date math
+"range" : {
+    "timestamp" : {
+        "gt" : "2014-01-01 00:00:00",
+        "lt" : "2014-01-01 00:00:00||+1M" 
+    }
+}
+
+#! range can also be in alphabet
+"range" : {
+    "title" : {
+        "gte" : "a",
+        "lt" :  "b"
+    }
+}
+
+GET /avatar/_search
+{
+    "query" : {
+        "constant_score" : {
+            "filter" : {
+                "exists" : { "field" : "phoneNumber" }
+            }
+        }
+    }
+}
+
+GET /avatar/_search
+{
+    "query" : {
+        "constant_score" : {
+            "filter": {
+                "missing" : { "field" : "phoneNumber" }
+            }
+        }
+    }
+}
+
+#! we can change the specificity of our query by using "and" and "or" in the operator section
+GET /avatar/_search
+{
+    "query": {
+        "match": {
+            "about": {      
+                "query":    "love climb",
+                "operator": "and"
+            }
+        }
+    }
+}
+
+#! 75 precent should match
+GET /avatar/_search
+{
+  "query": {
+    "match": {
+      "about": {
+        "query": "anything I can",
+        "minimum_should_match": "75%"
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
