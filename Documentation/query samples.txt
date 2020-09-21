@@ -655,7 +655,73 @@ GET /avatar/_search
   }
 }
 
+GET /avatar/_search
 
+GET /avatar/_search
+{
+  "query": {
+    "match": {
+      "about": {
+        "query": "anything I can",
+        "minimum_should_match": "75%"
+      }
+    }
+  }
+}
+
+
+#! Imagine that we want to search for documents about "love" but we want to give more weight to documents that also mention "fishing" or "sleep."
+GET /avatar/_search
+{
+    "query": {
+        "bool": {
+            "must": {
+                "match": {
+                    "about": { 
+                        "query":    "love",
+                        "operator": "and"
+                    }
+                }
+            },
+            "should": [ 
+                { "match": { "about": "fishing" }},
+                { "match": { "about": "sleep"  }}
+            ]
+        }
+    }
+}
+
+#!  A boost value greater than 1 increases the relative weight of that clause.
+
+GET /_search
+{
+    "query": {
+        "bool": {
+            "must": {
+                "match": {  
+                    "about": {
+                        "query":    "love",
+                        "operator": "and"
+                    }
+                }
+            },
+            "should": [
+                { "match": {
+                    "about": {
+                        "query": "fishing",
+                        "boost": 3 
+                    }
+                }},
+                { "match": {
+                    "about": {
+                        "query": "sleep",
+                        "boost": 2 
+                    }
+                }}
+            ]
+        }
+    }
+}
 
 
 
