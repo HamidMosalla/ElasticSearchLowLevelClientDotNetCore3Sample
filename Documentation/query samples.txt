@@ -723,22 +723,18 @@ GET /_search
     }
 }
 
+#! Validates a potentially expensive query without executing it.
+GET /Avatar/_validate/query?q=user.id:kimchy
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#! the inserted objects should all be in one line, otherwise it'll throw errors like
+#! Malformed action/metadata line [3], expected START_OBJECT but found [VALUE_STRING]
+POST /avatar/_doc/_bulk
+{ "index":  {  }}
+{ "firstName":    "My 1 very first name", "age": 14 }
+{ "index":  {  }}
+{ "firstName":    "My 2  name", "age": 15 }
+{ "index":  {  }}
+{ "firstName":    "My 3 name", "age": 16 }
 
 
 
