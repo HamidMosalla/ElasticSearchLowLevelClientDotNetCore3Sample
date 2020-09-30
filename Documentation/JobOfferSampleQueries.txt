@@ -1,0 +1,364 @@
+{
+  "hmdjoboffers" : {
+    "mappings" : {
+      "properties" : {
+        "Description" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "Organisation" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "Reference" : {
+          "type" : "date"
+        },
+        "Title" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+POST /hmdjoboffers/_doc/_bulk
+{ "index":  {  }}
+{ "Reference":"2012-01-01", "Title":"Vendeur / Commercial / Chargé de clientèle H/F","Description":"We are looking for an organized Project Administrator to perform clerical duties on projects. The Project Administrator is responsible for scheduling meetings, managing office inventory, and tracking expenses. To be successful as a Project Administrator you must be able to multitask. A good Project Administrator has excellent attention to detail.", "Organisation":"US4"}
+{ "index":  {  }}
+{ "Reference":"2012-02-01", "Title":"Chargé du courrier H/F", "Description":"We are looking for a Program Coordinator with the ability to multitask and manage several aspects of project planning and execution. The Program Coordinator is responsible for raising funds, maintaining project budgets and managing communication with the public on social media and via email or telephone.", "Organisation":"Talentsoft"}
+{ "index":  {  }}
+{ "Reference":"2012-03-01", "Title":"Program Assistant H/F", "Description":"We are looking for a Program Assistant with excellent multi-tasking abilities to perform administrative tasks for our project. The Program Assistant is responsible for answering phone calls, responding to emails and scheduling meetings.", "Organisation":"US4"}
+{ "index":  {  }}
+{ "Reference":"2012-04-01", "Title":"Student Recherche H/F", "Description":"We are looking for a mature student to assist a university staff member with lecture preparation and office work. The Student Assistant role may include responsibilities such as printing, proofreading, communicating with students and staff, and filing.", "Organisation":"Talentsoft"}
+{ "index":  {  }}
+{ "Reference":"2012-05-01", "Title":"Creative Writer Filiale / Centre de Profits H/F", "Description":"We are looking for a Creative Writer with a keen eye for detail and the ability to thrive under pressure. The Creative Writer will be constructing copy, both long and short-form, for a number of different audiences. You must be able to work well on your own and as part of a team. Any changes suggested by our editors should be timeously implemented. The Creative Writer should know how to strike a balance between quality and quantity.", "Organisation":"Talentsoft"}
+{ "index":  {  }}
+{ "Reference":"2012-06-01", "Title":"Directeur Record Producer / Centre de Profits H/F", "Description":"We are looking for a Record Producer to be responsible for managing the recording and production process. The responsibilities of a Record Producer include crafting ideas for music projects, improving lyrics and arrangements, and collaborating with other artists.", "Organisation":"Talentsoft"}
+{ "index":  {  }}
+{ "Reference":"2012-07-01", "Title":"Directeur Filiale / Centre de Profits H/F", "Description":"We are looking for a Finance Assistant to support our financial department. The responsibilities of a Finance Assistant include processing payments, updating financial records, and managing invoices.", "Organisation":"Talentsoft"}
+{ "index":  {  }}
+{ "Reference":"2012-08-01", "Title":"Chargé de Cashier - Rédaction H/F", "Description":"We are looking for an efficient, courteous Cashier who possesses excellent customer service skills. The Cashier will scan the customer’s selections, ensure that prices and quantities are accurate, accept payments, issue receipts, answer inquiries, and provide helpful information to customers products, promotions, or item location. You will also respond to complaints, process refunds or exchanges of items, and maintain a clean workspace.", "Organisation":"Talentsoft"}
+
+POST /hmdjoboffers/_doc/1
+{
+      "Reference":"2012-01-01",
+      "Title":"Vendeur / Commercial / Chargé de clientèle H/F",
+      "Description":"We are looking for an organized Project Administrator to perform clerical duties on projects. The Project Administrator is responsible for scheduling meetings, managing office inventory, and tracking expenses. To be successful as a Project Administrator you must be able to multitask. A good Project Administrator has excellent attention to detail.",
+      "Organisation":"US4"
+}
+
+POST /hmdjoboffers/_doc/2
+{
+      "Reference":"2012-02-01",
+      "Title":"Chargé du courrier H/F",
+      "Description":"We are looking for a Program Coordinator with the ability to multitask and manage several aspects of project planning and execution. The Program Coordinator is responsible for raising funds, maintaining project budgets and managing communication with the public on social media and via email or telephone.",
+      "Organisation":"Talentsoft"
+}
+
+POST /hmdjoboffers/_doc/3
+{
+      "Reference":"2012-03-01",
+      "Title":"Program Assistant H/F",
+      "Description":"We are looking for a Program Assistant with excellent multi-tasking abilities to perform administrative tasks for our project. The Program Assistant is responsible for answering phone calls, responding to emails and scheduling meetings.",
+      "Organisation":"US4"
+}
+
+POST /hmdjoboffers/_doc/4
+{
+      "Reference":"2012-04-01",
+      "Title":"Student Recherche H/F",
+      "Description":"We are looking for a mature student to assist a university staff member with lecture preparation and office work. The Student Assistant role may include responsibilities such as printing, proofreading, communicating with students and staff, and filing.",
+      "Organisation":"Talentsoft"
+}
+
+POST /hmdjoboffers/_doc/5
+{
+      "Reference":"2012-05-01",
+      "Title":"Creative Writer Filiale / Centre de Profits H/F",
+      "Description":"We are looking for a Creative Writer with a keen eye for detail and the ability to thrive under pressure. The Creative Writer will be constructing copy, both long and short-form, for a number of different audiences. You must be able to work well on your own and as part of a team. Any changes suggested by our editors should be timeously implemented. The Creative Writer should know how to strike a balance between quality and quantity.",
+      "Organisation":"Talentsoft"
+}
+
+POST /hmdjoboffers/_doc/6
+{
+      "Reference":"2012-06-01",
+      "Title":"Directeur Record Producer / Centre de Profits H/F",
+      "Description":"We are looking for a Record Producer to be responsible for managing the recording and production process. The responsibilities of a Record Producer include crafting ideas for music projects, improving lyrics and arrangements, and collaborating with other artists.",
+      "Organisation":"Talentsoft"
+}
+
+POST /hmdjoboffers/_doc/7
+{
+      "Reference":"2012-07-01",
+      "Title":"Directeur Filiale / Centre de Profits H/F",
+      "Description":"We are looking for a Finance Assistant to support our financial department. The responsibilities of a Finance Assistant include processing payments, updating financial records, and managing invoices.",
+      "Organisation":"Talentsoft"
+}
+
+POST /hmdjoboffers/_doc/8
+{
+      "Reference":"2012-08-01",
+      "Title":"Chargé de Cashier - Rédaction H/F",
+      "Description":"We are looking for an efficient, courteous Cashier who possesses excellent customer service skills. The Cashier will scan the customer’s selections, ensure that prices and quantities are accurate, accept payments, issue receipts, answer inquiries, and provide helpful information to customers products, promotions, or item location. You will also respond to complaints, process refunds or exchanges of items, and maintain a clean workspace.",
+      "Organisation":"Talentsoft"
+}
+
+GET /hmdjoboffers/_search
+GET /_cat/indices
+DELETE hmdjoboffers
+GET /hmdjoboffers/_mapping
+
+POST /hmdjoboffers/_search
+{
+   "query":{
+      "match":{
+         "Title":"Chargé"
+      }
+   }
+}
+
+GET /hmdjoboffers/_search
+{
+    "query" : {
+        "match_phrase" : {
+            "Title" : "Chargé"
+        }
+    }
+}
+
+GET /hmdjoboffers/_search
+{
+    "query" : {
+        "bool" : {
+            "must" : {
+                "match" : {
+                    "Title" : "Chargé" 
+                }
+            },
+            "filter" : {
+                "range" : {
+                    "Reference" : { "lt" : "2012-03-01" } 
+                }
+            }
+        }
+    }
+}
+
+GET /hmdjoboffers/_search
+{
+    "query" : {
+        "match_phrase" : {
+            "Description" : "project planning"
+        }
+    },
+    "highlight": {
+        "fields" : {
+            "Description" : {}
+        }
+    }
+}
+
+POST /hmdjoboffers/_search
+{
+   "query":{
+      "term":{
+        // Does not work on analyzed fields
+         "_id":1
+      }
+   },
+    "sort": "Reference"
+}
+
+GET /hmdjoboffers/_search
+{
+  "aggs": {
+    "all_references": {
+      "terms": { "field": "Reference" }
+    }
+  }
+}
+
+GET /hmdjoboffers/_count
+{
+  "query": {
+    "match": {
+      "Title": "Chargé"
+    }
+  }
+}
+
+GET /hmdjoboffers/_doc/1/_source
+
+#! just check for existence, it's more efficient
+HEAD /hmdjoboffers/_doc/1
+
+#! to create mappings with setting
+PUT /hmdjoboffers
+{
+  "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+      "dynamic": "strict",
+    "properties": {
+      "Email": {
+        "type": "text"
+    }
+    }
+  }
+}
+
+#! we only need title and reference
+GET /hmdjoboffers/_doc/1?_source=Title,Reference
+
+#! to expelicitly create document if it dose not exists, if exist it throws error document_already_exists_exception
+PUT /hmdjoboffers/_doc/1/_create
+
+#! combine indexes
+GET /hmdjoboffers,manu/_search 
+
+#! set timeout for queries
+GET hmdjoboffers/_search?timeout=10ms
+
+GET hmdjoboffers/_search?size=5&from=2
+
+POST /hmdjoboffers/_search
+{
+   "query":{
+      "match":{
+         "Title": "Chargé"
+      }
+   },
+    "sort": { "Reference": { "order": "desc" }}
+}
+
+POST /hmdjoboffers/_search
+{
+   "query":{
+      "term":{
+         "_id":1
+      }
+   },
+    "sort": "Reference"
+}
+
+#! create an alias for avatar index so we can call it better
+PUT /hmdjoboffers/_alias/hmj 
+
+GET /hmj/_search
+
+POST /hmdjoboffers/_search
+{
+   "query":{
+      "terms":{
+         "Title":["Commercial", "Assistant"]
+      }
+   },
+    "sort": "Reference"
+}
+
+POST /hmdjoboffers/_search
+{
+   "query":{
+      "range" : {
+        "Reference" : {
+            "gt" : "2012-01-02",
+            "lt" : "2012-04-01" 
+        }
+}
+   },
+    "sort": "Reference"
+}
+
+GET /hmdjoboffers/_search
+{
+    "query" : {
+        "constant_score" : {
+            "filter" : {
+                "exists" : { "field" : "Reference" }
+            }
+        }
+    }
+}
+
+#! 75 percent should match. change the value to 100% to see the difference in match
+GET /hmdjoboffers/_search
+{
+  "query": {
+    "match": {
+      "Title": {
+        "query": "Chargé de clientèle",
+        "minimum_should_match": "75%"
+      }
+    }
+  }
+}
+
+#! Imagine that we want to search for documents about "We are looking" but we want to give more weight to documents that also mention "Cashier" or "Producer."
+GET /hmdjoboffers/_search
+{
+    "query": {
+        "bool": {
+            "must": {
+                "match": {
+                    "Description": { 
+                        "query":    "We are looking",
+                        "operator": "and"
+                    }
+                }
+            },
+            "should": [ 
+                { "match": { "Title": "Cashier" }},
+                { "match": { "Title": "Producer"  }}
+            ]
+        }
+    }
+}
+
+#!  A boost value greater than 1 increases the relative weight of that clause. Switch 2 with 4 to see the difference.
+GET /_search
+{
+    "query": {
+        "bool": {
+            "must": {
+                "match": {  
+                    "Description": {
+                        "query":    "We are looking",
+                        "operator": "and"
+                    }
+                }
+            },
+            "should": [
+                { "match": {
+                    "Title": {
+                        "query": "Producer",
+                        "boost": 2 
+                    }
+                }},
+                { "match": {
+                    "Title": {
+                        "query": "Cashier",
+                        "boost": 4 
+                    }
+                }}
+            ]
+        }
+    }
+}
