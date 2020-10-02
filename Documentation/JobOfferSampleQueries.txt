@@ -362,3 +362,109 @@ GET /_search
         }
     }
 }
+
+#! High-level queries like the match query understand field mappings and can apply the correct analyzer for each field being queried.
+#! We can see this in action with the validate-query API.
+
+GET /hmdjoboffers/_doc/_validate/query?explain
+{
+    "query": {
+        "bool": {
+            "should": [
+                { "match": { "title":         "Foxes"}},
+                { "match": { "english_title": "Foxes"}}
+            ]
+        }
+    }
+}
+
+GET /hmdjoboffers/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        { "match": { "Title":  "Assistant" }},
+        { "match": { "Description": "multi-tasking"   }}
+      ]
+    }
+  }
+}
+
+#! Disjunction means or (while conjunction means and)
+#! If their score is a tie, we can add tie breaker like "tie_breaker": 0.3"
+#! With the tie_breaker, all matching clauses count, but the best-matching clause counts most.
+GET /hmdjoboffers/_search
+{
+    "query": {
+        "dis_max": {
+            "queries": [
+                { "match": { "Title": "Student" }},
+                { "match": { "Description":  "Creative" }}
+            ]
+        }
+    }
+}
+
+GET /hmdjoboffers/_search
+{
+      "query": {
+        "multi_match": {
+            "query":                "Creative Student",
+            "type":                 "best_fields", 
+            "fields":               [ "Title", "Description" ],
+            "tie_breaker":          0.3,
+            "minimum_should_match": "30%" 
+        }
+      }
+}
+
+#! wildcard
+GET /hmdjoboffers/_search
+{
+      "query": {
+        "multi_match": {
+            "query":                "Creative Student",
+            "type":                 "best_fields", 
+            "fields":               [ "*Title", "*Description" ],
+            "tie_breaker":          0.3,
+            "minimum_should_match": "30%" 
+        }
+      }
+}
+
+
+#! boosting individual value
+GET /hmdjoboffers/_search
+{
+      "query": {
+        "multi_match": {
+            "query":                "Creative Student",
+            "type":                 "best_fields", 
+            "fields":               [ "Title", "*Description^2" ],
+            "tie_breaker":          0.3,
+            "minimum_should_match": "30%" 
+        }
+      }
+}
+
+#! we can index the same field with different analyzer to match more broad things, for example the "english" analyzer stem the word but "standard" analyzer does not do that
+PUT /my_index
+{
+    "settings": { "number_of_shards": 1 }, 
+    "mappings": {
+        "my_type": {
+            "properties": {
+                "title": { 
+                    "type":     "string",
+                    "analyzer": "english",
+                    "fields": {
+                        "std":   { 
+                            "type":     "string",
+                            "analyzer": "standard"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
