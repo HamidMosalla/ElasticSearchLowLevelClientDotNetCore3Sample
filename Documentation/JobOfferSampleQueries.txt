@@ -434,6 +434,7 @@ GET /hmdjoboffers/_search
 
 
 #! boosting individual value
+#! Avoid using not_analyzed fields in multi_match queries.
 GET /hmdjoboffers/_search
 {
       "query": {
@@ -467,4 +468,52 @@ PUT /my_index
             }
         }
     }
+}
+
+#!  It would be nice to have one custom _all field for the person’s name, and another custom _all field for the address.
+PUT /my_index
+{
+    "mappings": {
+        "person": {
+            "properties": {
+                "first_name": {
+                    "type":     "string",
+                    "copy_to":  "full_name" 
+                },
+                "last_name": {
+                    "type":     "string",
+                    "copy_to":  "full_name" 
+                },
+                "full_name": {
+                    "type":     "string"
+                }
+            }
+        }
+    }
+}
+
+#! a little verbose
+GET /hmdjoboffers/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        { "match": { "Title":        "Assistant" }},
+        { "match": { "Description":   "Assistant" }},
+        { "match": { "Organisation":  "Assistant" }}
+      ]
+    }
+  }
+}
+
+#! same thing as above but less verbose
+GET /hmdjoboffers/_search
+{
+  "query": {
+    "multi_match": {
+      "query":       "Assistant",
+      "type":        "most_fields",
+      "fields":      [ "Title", "Description", "Organisation" ]
+    }
+  }
 }
