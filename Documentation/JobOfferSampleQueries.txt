@@ -517,3 +517,40 @@ GET /hmdjoboffers/_search
     }
   }
 }
+
+GET /apitestdata-sample/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "geo_distance": {
+            "distance": "200km",
+            "location.coordinates": {
+              "lat": 48,
+              "lon": 2
+            }
+          }
+        },
+        {
+          "geo_distance": {
+            "distance": "200km",
+            "location.coordinates": {
+              "lat": 49,
+              "lon": 2
+            }
+          }
+        }
+        ,
+        {
+          "multi_match": {
+            "query": "tsdev",
+            "fields": [
+              "*"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
