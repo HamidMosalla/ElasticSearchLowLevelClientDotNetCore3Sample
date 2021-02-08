@@ -518,6 +518,45 @@ GET /hmdjoboffers/_search
   }
 }
 
+#!  "minimum_should_match": 1
+GET apitestdata-sample/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "multi_match": {
+            "query": "London",
+            "fields": [
+              "location.address"
+            ],
+            "boost": 1,
+            "type": "phrase_prefix"
+          }
+        },
+        {
+          "multi_match": {
+            "query": "Tokio",
+            "fields": [
+              "location.address"
+            ],
+            "boost": 1,
+            "type": "phrase_prefix"
+          }
+        }
+      ],      
+      "minimum_should_match": 1,
+      "filter": [
+        {
+          "match_phrase": {
+            "TenantId": "tsdev"
+          }
+        }
+      ]
+    }
+  }
+}
+
 GET /apitestdata-sample/_search
 {
   "query": {
