@@ -1,0 +1,52 @@
+GET /search-apitestdatatalentprofile-1.1-sample/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET /search-apitestdatatalentprofile-1.1-sample/_search
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "match_phrase": {
+            "TenantId": "dev"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET /search-apitestdatatalentprofile-1.1-sample/_search
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "TenantId.keyword": "dev-re"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET /search-apitestdatatalentprofile-1.1-sample/_search
+{
+  "query": {
+    "bool": {
+      "must": [], 
+      "filter": [
+        {
+          "term": {
+            "TenantId.keyword": "dev"
+          }
+        }
+      ]
+    }
+  }
+}
