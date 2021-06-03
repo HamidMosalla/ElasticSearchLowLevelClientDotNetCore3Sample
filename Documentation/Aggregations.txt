@@ -199,3 +199,86 @@ GET /vehicles/_search
 }
 
 
+GET /search-apitestdatavacancies-2.1-sample/_search
+{
+  "sort": [],
+  "query": {
+    "bool": {
+      "must": [],
+      "should": [],
+      "filter": [
+        {
+          "term": {
+            "TenantId.keyword": "dev"
+          }
+        }
+      ]
+    } 
+  },
+  "aggs": {
+    "total": {
+      "value_count": {
+        "field": "reference"
+      }
+    },
+    "geographicalAreaFacet": {
+      "terms": {
+        "field": "location.geographicalArea.label.keyword"
+      }
+    }
+  }
+}
+
+
+==================result=============================
+  "aggregations" : {
+    "total" : {
+      "value" : 32
+    },
+    "geographicalAreaFacet" : {
+      "doc_count_error_upper_bound" : 0,
+      "sum_other_doc_count" : 21,
+      "buckets" : [
+        {
+          "key" : "Buckinghamshire",
+          "doc_count" : 2
+        },
+        {
+          "key" : "ADP",
+          "doc_count" : 1
+        },
+        {
+          "key" : "Facilitator",
+          "doc_count" : 1
+        },
+        {
+          "key" : "Frozen",
+          "doc_count" : 1
+        },
+        {
+          "key" : "Greece",
+          "doc_count" : 1
+        },
+        {
+          "key" : "Incredible Soft Car",
+          "doc_count" : 1
+        },
+        {
+          "key" : "Infrastructure",
+          "doc_count" : 1
+        },
+        {
+          "key" : "Licensed Rubber Towels",
+          "doc_count" : 1
+        },
+        {
+          "key" : "Metal",
+          "doc_count" : 1
+        },
+        {
+          "key" : "Music, Industrial & Clothing",
+          "doc_count" : 1
+        }
+      ]
+    }
+  }

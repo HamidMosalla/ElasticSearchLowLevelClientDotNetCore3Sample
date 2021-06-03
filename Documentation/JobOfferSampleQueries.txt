@@ -593,3 +593,28 @@ GET /apitestdata-sample/_search
     }
   }
 }
+
+GET /apitestdatatalentprofile-sample/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "term": {
+            "_id": {
+              "value": "FR7000277-tsdev"
+            }
+          }
+        },
+        {
+          "term": {
+            "_id": {
+              "value": "HRDNB1-tsdev"
+            }
+          }
+        }
+      ],
+      "minimum_should_match": 1
+    }
+  }
+}
