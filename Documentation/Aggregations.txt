@@ -282,3 +282,46 @@ GET /search-apitestdatavacancies-2.1-sample/_search
       ]
     }
   }
+
+
+  GET /search-apitestdatatalentprofile-1.1-sample/_search
+{
+  "sort": [],
+  "query": {
+    "bool": {
+      "must": [],
+      "should": [],
+      "filter": [
+        {
+          "term": {
+            "TenantId.keyword": "dev"
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "TotalCountResult": {
+      "value_count": {
+        "field": "clientCode"
+      }
+    },
+    "education.experienceTypeFacet": {
+      "nested": {
+        "path": "education"
+      },
+      "aggs": {
+        "education.experienceTypeFacet": {
+          "terms": {
+            "field": "education.experienceType.keyword"
+          }
+        }
+      }
+    },
+    "jobFacet": {
+      "terms": {
+        "field": "job.keyword"
+      }
+    }
+  }
+}
