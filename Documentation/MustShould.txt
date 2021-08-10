@@ -1,0 +1,334 @@
+﻿#! (X Or Y) And (Z Or V)
+GET /search-apitestdatavacancies-2.1-sample/_search
+{
+  "sort": [],
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "multi_match": {
+                        "query": "green",
+                        "fields": [
+                          "organisation.id"
+                        ],
+                        "boost": 1,
+                        "fuzziness": "auto"
+                      }
+                    },
+                    {
+                      "multi_match": {
+                        "query": "green",
+                        "fields": [
+                          "organisation.id"
+                        ],
+                        "boost": 1,
+                        "type": "phrase_prefix"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "multi_match": {
+                        "query": "open-source",
+                        "fields": [
+                          "organisation.id"
+                        ],
+                        "boost": 1,
+                        "fuzziness": "auto"
+                      }
+                    },
+                    {
+                      "multi_match": {
+                        "query": "open-source",
+                        "fields": [
+                          "organisation.id"
+                        ],
+                        "boost": 1,
+                        "type": "phrase_prefix"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "multi_match": {
+                        "query": "toolset",
+                        "fields": [
+                          "jobDescription.contractType.id"
+                        ],
+                        "boost": 1,
+                        "fuzziness": "auto"
+                      }
+                    },
+                    {
+                      "multi_match": {
+                        "query": "toolset",
+                        "fields": [
+                          "jobDescription.contractType.id"
+                        ],
+                        "boost": 1,
+                        "type": "phrase_prefix"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "multi_match": {
+                        "query": "Public-key",
+                        "fields": [
+                          "jobDescription.contractType.id"
+                        ],
+                        "boost": 1,
+                        "fuzziness": "auto"
+                      }
+                    },
+                    {
+                      "multi_match": {
+                        "query": "Public-key",
+                        "fields": [
+                          "jobDescription.contractType.id"
+                        ],
+                        "boost": 1,
+                        "type": "phrase_prefix"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "match_phrase_prefix": {
+                  "Language": {
+                    "query": "en-US",
+                    "boost": 1
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "filter": [
+        {
+          "term": {
+            "TenantId.keyword": "dev"
+          }
+        }
+      ]
+    }
+  },
+  "collapse": {
+    "field": "reference"
+  },
+  "aggs": {
+    "FoundationElasticTotalCountResult": {
+      "cardinality": {
+        "field": "reference"
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#! (X And Y) Or (Z And V)
+GET /search-apitestdatavacancies-2.1-sample/_search
+{
+  "sort": [],
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "bool": {
+            "must": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "multi_match": {
+                        "query": "green",
+                        "fields": [
+                          "organisation.id"
+                        ],
+                        "boost": 1,
+                        "fuzziness": "auto"
+                      }
+                    },
+                    {
+                      "multi_match": {
+                        "query": "green",
+                        "fields": [
+                          "organisation.id"
+                        ],
+                        "boost": 1,
+                        "type": "phrase_prefix"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "multi_match": {
+                        "query": "open-source",
+                        "fields": [
+                          "organisation.id"
+                        ],
+                        "boost": 1,
+                        "fuzziness": "auto"
+                      }
+                    },
+                    {
+                      "multi_match": {
+                        "query": "open-source",
+                        "fields": [
+                          "organisation.id"
+                        ],
+                        "boost": 1,
+                        "type": "phrase_prefix"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "must": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "multi_match": {
+                        "query": "toolset",
+                        "fields": [
+                          "jobDescription.contractType.id"
+                        ],
+                        "boost": 1,
+                        "fuzziness": "auto"
+                      }
+                    },
+                    {
+                      "multi_match": {
+                        "query": "toolset",
+                        "fields": [
+                          "jobDescription.contractType.id"
+                        ],
+                        "boost": 1,
+                        "type": "phrase_prefix"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "multi_match": {
+                        "query": "Public-key",
+                        "fields": [
+                          "jobDescription.contractType.id"
+                        ],
+                        "boost": 1,
+                        "fuzziness": "auto"
+                      }
+                    },
+                    {
+                      "multi_match": {
+                        "query": "Public-key",
+                        "fields": [
+                          "jobDescription.contractType.id"
+                        ],
+                        "boost": 1,
+                        "type": "phrase_prefix"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "match_phrase_prefix": {
+                  "Language": {
+                    "query": "en-US",
+                    "boost": 1
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "filter": [
+        {
+          "term": {
+            "TenantId.keyword": "dev"
+          }
+        }
+      ]
+    }
+  },
+  "collapse": {
+    "field": "reference"
+  },
+  "aggs": {
+    "FoundationElasticTotalCountResult": {
+      "cardinality": {
+        "field": "reference"
+      }
+    }
+  }
+}
