@@ -1,0 +1,301 @@
+DELETE skills-geo-shape-test
+
+PUT /skills-geo-shape-test
+{
+  "mappings": {
+    "properties": {
+      "location": {
+        "type": "geo_shape"
+      }
+    }
+  }
+}
+
+POST /skills-geo-shape-test/_doc?refresh
+{
+  "name": "Wind & Wetter, Berlin, Germany",
+  "location": {
+    "type": "point",
+    "coordinates": [ 48.855471, 2.442451 ]
+  }
+}
+
+POST /skills-geo-shape-test/_doc?refresh
+{
+  "name": "Fitness Park, Montreuil, Germany",
+  "location": {
+    "type": "point",
+    "coordinates": [ 48.85598, 2.4338 ]
+  }
+}
+
+GET /skills-geo-shape-test/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_shape": {
+          "location": {
+            "shape": {
+              "type": "polygon",
+              "coordinates": [
+                [
+                  [
+                    48.854609,
+                    2.443977
+                  ],
+                  [
+                    48.854609,
+                    2.442428
+                  ],
+                  [
+                    48.855702,
+                    2.442198
+                  ],
+                  [
+                    48.855702,
+                    2.444138
+                  ],
+                  [
+                    48.854609,
+                    2.443977
+                  ]
+                ]
+              ]
+            },
+            "relation": "within"
+          }
+        }
+      }
+    }
+  }
+}
+
+GET /skills-geo-shape-test/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_shape": {
+          "location": {
+            "shape": {
+              "type": "polygon",
+              "coordinates": [
+                [
+                  [
+                    48.8563,
+                    2.43554
+                  ],
+                  [
+                    48.85627,
+                    2.43223
+                  ],
+                  [
+                    48.85504,
+                    2.43396
+                  ],
+                  [
+                    48.8563,
+                    2.43554
+                  ]
+                ]
+              ]
+            },
+            "relation": "within"
+          }
+        }
+      }
+    }
+  }
+}
+
+GET /skills-geo-shape-test/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_shape": {
+          "location": {
+            "shape": {
+              "type": "envelope",
+              "coordinates": [
+                [
+                  48.85484,
+                  2.43659
+                ],
+                [
+                  48.85679,
+                  2.43104
+                ]
+              ]
+            },
+            "relation": "within"
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#! vise versa query
+
+DELETE /skills-geo-shape-test
+
+PUT /skills-geo-shape-test
+{
+  "mappings": {
+    "properties": {
+      "location": {
+        "type": "geo_shape"
+      }
+    }
+  }
+}
+
+POST /skills-geo-shape-test/_doc?refresh
+{
+  "location": {
+    "type": "polygon",
+    "coordinates": [
+      [
+        [
+          2.9109533049198,
+          42.525105483878
+        ],
+        [
+          2.9110769445829,
+          42.531703894436
+        ],
+        [
+          2.9032846986744,
+          42.539733810015
+        ],
+        [
+          2.9030996511561,
+          42.556013979376
+        ],
+        [
+          2.9131331966995,
+          42.562962734203
+        ],
+        [
+          2.9135244444206,
+          42.569759384018
+        ],
+        [
+          2.917877044124,
+          42.57088655519
+        ],
+        [
+          2.9319395143989,
+          42.568900684816
+        ],
+        [
+          2.9403405122874,
+          42.572016209123
+        ],
+        [
+          2.9363870185385,
+          42.561333977005
+        ],
+        [
+          2.9309712722105,
+          42.534037916636
+        ],
+        [
+          2.9109533049198,
+          42.525105483878
+        ]
+      ]
+    ]
+  }
+}
+
+GET /skills-geo-shape-test/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_shape": {
+          "location": {
+            "relation": "intersects",
+            "shape": {
+              "coordinates": [
+                2.9319395143989,
+                42.568900684816
+              ],
+              "type": "point"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+PUT /skills-geo-shape-test
+{
+  "mappings": {
+    "properties": {
+      "location": {
+        "type": "geo_point"
+      }
+    }
+  }
+}
+
+POST /skills-geo-shape-test/_doc?refresh
+{
+  "name": "Wind & Wetter, Berlin, Germany",
+  "location":  { "lat": 48.855471, "lon": 2.442451  }
+}
+
+
+#! geo_shape is not comopatible with geo_point and vise versa
+GET /skills-geo-shape-test/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_distance": {
+          "distance": "200km",
+          "location": {
+            "lat": 48.855471,
+            "lon": 2.442451
+          }
+        }
+      }
+    }
+  }
+}
+
+
