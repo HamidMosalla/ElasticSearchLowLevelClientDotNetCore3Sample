@@ -1,0 +1,133 @@
+﻿#! in GeoJson coordinates need to be lon lat as opposed to lat lon which is normal in google map etc
+DELETE skills-geo-shape-test
+
+PUT /skills-geo-shape-test
+{
+  "mappings": {
+    "properties": {
+      "location": {
+        "type": "geo_point"
+      }
+    }
+  }
+}
+
+POST /skills-geo-shape-test/_doc?refresh
+{
+  "name": "Wind & Wetter, Berlin, Germany",
+  "location":  { "lat": 48.855471, "lon": 2.442451  }
+}
+
+POST /skills-geo-shape-test/_doc?refresh
+{
+  "name": "Wind & Wetter, Montreuil, France",
+  "location":  { "lat": 48.85598, "lon": 2.4338  }
+}
+
+GET /skills-geo-shape-test/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_distance": {
+          "distance": "1km",
+          "location": {
+            "lat": 48.855471,
+            "lon": 2.442451
+          }
+        }
+      }
+    }
+  }
+}
+
+GET /skills-geo-shape-test/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_shape": {
+          "location": {
+            "shape": {
+              "type": "polygon",
+              "coordinates": [
+                [
+                  [
+                    
+                    2.443977,
+                    48.854609
+                  ],
+                  [
+                    2.442428,
+                    48.854609
+                    
+                  ],
+                  [
+                     2.442198,
+                    48.855702
+                  ],
+                  [
+                    2.444138,
+                    48.855702
+                  ],
+                  [
+                    2.443977,
+                    48.854609
+                  ]
+                ]
+              ]
+            },
+            "relation": "intersects"
+          }
+        }
+      }
+    }
+  }
+}
+
+GET /skills-geo-shape-test/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_shape": {
+          "location": {
+            "shape": {
+              "type": "polygon",
+              "coordinates": [
+                [
+                  [
+                    2.43554,
+                    48.8563
+                  ],
+                  [
+                    2.43223,
+                    48.85627
+                  ],
+                  [
+                    2.43396,
+                    48.85504
+                  ],
+                  [
+                    2.43554,
+                    48.8563
+                  ]
+                ]
+              ]
+            },
+            "relation": "intersects"
+          }
+        }
+      }
+    }
+  }
+}

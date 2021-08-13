@@ -16,7 +16,7 @@ POST /skills-geo-shape-test/_doc?refresh
   "name": "Wind & Wetter, Berlin, Germany",
   "location": {
     "type": "point",
-    "coordinates": [ 48.855471, 2.442451 ]
+    "coordinates": [ 2.442451, 48.855471  ]
   }
 }
 
@@ -25,7 +25,7 @@ POST /skills-geo-shape-test/_doc?refresh
   "name": "Fitness Park, Montreuil, Germany",
   "location": {
     "type": "point",
-    "coordinates": [ 48.85598, 2.4338 ]
+    "coordinates": [ 2.4338, 48.85598 ]
   }
 }
 
@@ -44,24 +44,24 @@ GET /skills-geo-shape-test/_search
               "coordinates": [
                 [
                   [
-                    48.854609,
-                    2.443977
+                    2.443977,
+                    48.854609
                   ],
                   [
-                    48.854609,
-                    2.442428
+                    2.442428,
+                    48.854609
                   ],
                   [
-                    48.855702,
-                    2.442198
+                    2.442198,
+                    48.855702
                   ],
                   [
-                    48.855702,
-                    2.444138
+                    2.444138,
+                    48.855702
                   ],
                   [
-                    48.854609,
-                    2.443977
+                    2.443977,
+                    48.854609
                   ]
                 ]
               ]
@@ -89,20 +89,20 @@ GET /skills-geo-shape-test/_search
               "coordinates": [
                 [
                   [
-                    48.8563,
-                    2.43554
+                    2.43554,
+                    48.8563
                   ],
                   [
-                    48.85627,
-                    2.43223
+                    2.43223,
+                    48.85627
                   ],
                   [
-                    48.85504,
-                    2.43396
+                    2.43396,
+                    48.85504
                   ],
                   [
-                    48.8563,
-                    2.43554
+                    2.43554,
+                    48.8563
                   ]
                 ]
               ]
@@ -129,12 +129,12 @@ GET /skills-geo-shape-test/_search
               "type": "envelope",
               "coordinates": [
                 [
-                  48.85484,
-                  2.43659
+                  2.43104,
+                  48.85679
                 ],
                 [
-                  48.85679,
-                  2.43104
+                  2.43659,
+                  48.85484
                 ]
               ]
             },
@@ -150,16 +150,7 @@ GET /skills-geo-shape-test/_search
 
 
 
-
-
-
-
-
-
-
-
-
-#! vise versa query
+#! Finding a point on already existing shape (coordinates)
 
 DELETE /skills-geo-shape-test
 
@@ -257,45 +248,3 @@ GET /skills-geo-shape-test/_search
     }
   }
 }
-
-
-PUT /skills-geo-shape-test
-{
-  "mappings": {
-    "properties": {
-      "location": {
-        "type": "geo_point"
-      }
-    }
-  }
-}
-
-POST /skills-geo-shape-test/_doc?refresh
-{
-  "name": "Wind & Wetter, Berlin, Germany",
-  "location":  { "lat": 48.855471, "lon": 2.442451  }
-}
-
-
-#! geo_shape is not comopatible with geo_point and vise versa
-GET /skills-geo-shape-test/_search
-{
-  "query": {
-    "bool": {
-      "must": {
-        "match_all": {}
-      },
-      "filter": {
-        "geo_distance": {
-          "distance": "200km",
-          "location": {
-            "lat": 48.855471,
-            "lon": 2.442451
-          }
-        }
-      }
-    }
-  }
-}
-
-
